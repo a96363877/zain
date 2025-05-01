@@ -43,8 +43,9 @@ export default function ServiceNumberEntry({
               رقم الحساب أو رقم الخدمة
             </label>
             <input
-              type="text"
+              type="tel"
               id="serviceNumber"
+              maxLength={10}
               className="w-full border border-gray-300 rounded-md p-3 text-right"
               placeholder="مثال: 3XXXXXX، 66XXXXXX، 100XXXXXX"
               value={serviceNumber}

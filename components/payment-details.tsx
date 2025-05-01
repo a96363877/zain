@@ -49,7 +49,7 @@ export default function PaymentDetails({ serviceNumber, onSubmit, onChangeNumber
                 أدخل المبلغ
               </label>
               <input
-                type="text"
+                type="tel"
                 id="amount"
                 className="w-full border border-gray-300 rounded-md p-3 text-right"
                 placeholder="د.ب"
