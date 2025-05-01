@@ -171,24 +171,24 @@ export default function Footer() {
         <p className="text-sm mt-2">حمل تطبيق زين</p>
         <div className="flex justify-center gap-2 mt-2">
           <Link href="#" className="block">
-            <Image
-              src="/app-store-button.png"
+            <img
+              src="https://eshop.bh.zain.com/sites/default/files/ImagesDir/2024-03/Badge-1-appstore%20%281%29.png"
               alt="App Store"
               width={120}
               height={40}
             />
           </Link>
           <Link href="#" className="block">
-            <Image
-              src="/google-play-button.png"
+            <img
+              src="https://eshop.bh.zain.com/sites/default/files/ImagesDir/2024-03/Badge-google.png"
               alt="Google Play"
               width={120}
               height={40}
             />
           </Link>
           <Link href="#" className="block">
-            <Image
-              src="/huawei-app-gallery-button.png"
+            <img
+              src="https://eshop.bh.zain.com/sites/default/files/ImagesDir/2024-03/Badge-2-appgalary.png"
               alt="AppGallery"
               width={120}
               height={40}
