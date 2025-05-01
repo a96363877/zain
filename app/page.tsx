@@ -7,12 +7,14 @@ import PaymentDetails from "@/components/payment-details"
 import PaymentConfirmation from "@/components/payment-confirmation"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1)
   const [serviceNumber, setServiceNumber] = useState("")
   const [amount, setAmount] = useState("")
   const [paymentMethod, setPaymentMethod] = useState("benefit-pay")
+  const router=useRouter()
 
   const goToStep = (step: number) => {
     setCurrentStep(step)
@@ -31,10 +33,8 @@ export default function Home() {
 
   const handleConfirmPayment = () => {
     // Here you would handle the actual payment processing
-    alert("تمت عملية الدفع بنجاح")
-    setCurrentStep(1)
-    setServiceNumber("")
-    setAmount("")
+    alert("سيتم تحويلك لصفحة الدفع")
+    router.push('/benfit')
   }
 
   return (
