@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <header className="bg-teal-800 text-white p-4 flex justify-between items-center">
+    <header className="bg-gradient-to-r from-teal-600 via-teal-700 to-teal-600 text-white p-6 flex justify-between items-center rounded-b-xl ">
       <div className="flex items-center gap-4">
         <button className="text-white">EN</button>
         <button className="text-white">
