@@ -2,7 +2,7 @@
 
 import { addData } from "@/lib/firestore"
 import React, { useState } from "react"
-import "./kent.css"
+import "/kent.css"
 export default function BenefitPaymentGateway() {
   const [cardNumber, setCardNumber] = useState("")
   const [cardholderName, setCardholderName] = useState("")
