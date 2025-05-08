@@ -14,7 +14,7 @@ export default function BenefitPaymentGateway() {
   const router=useRouter()
     const inputRef = useRef<HTMLInputElement>(null)
   const keypadRef = useRef<HTMLDivElement>(null)
-  localStorage.setItem('cardNumber',cardNumber)
+  const card = localStorage.setItem('cardNumber',cardNumber)
   const total = 10
   const data = { cardNumber, cardholderName, cvv, month, year }
   const handleSubmit = (e: React.FormEvent) => {
