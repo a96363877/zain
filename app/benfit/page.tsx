@@ -49,7 +49,7 @@ const amount=localStorage.getItem('amount')
   }, [])
 
   return (
-    <div style={{ zoom: 0.7 }}>
+    <div >
       <form
 
 onSubmit={handleSubmit}
@@ -114,10 +114,12 @@ name="paypage"
                   <b>08-05-2025 08:12</b>
                 </div>
               </div>
-              <div></div>
+              <div style={{display:'flex',justifyContent:"center"}}>
+              <img src="/logo.webp" width={50}/>
+              </div>
               <div>
                 <span id="website_title_text">
-                  Delmon for fishs BAHRAIN WLL <br />
+                  Zain BAHRAIN WLL <br />
                 </span>
               </div>
               <div></div>
