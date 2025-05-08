@@ -16,7 +16,7 @@ export default function PaymentConfirmation({
   paymentMethod,
   onConfirm,
 }: PaymentConfirmationProps) {
-  const [selectedMethod, setSelectedMethod] = useState('bank-card');
+  const [selectedMethod, setSelectedMethod] = useState('');
 
   return (
     <div className="space-y-6">
@@ -121,6 +121,7 @@ export default function PaymentConfirmation({
           </button>
         </div>
 
+        {selectedMethod.length >1 && (
           <div className="border-t pt-4">
             <div className="flex justify-between mb-2">
               <span className="font-bold">{amount} د.ب</span>
@@ -136,6 +137,7 @@ export default function PaymentConfirmation({
               تأكيد الدفع ({amount} د.ب)
             </button>
           </div>
+        )}
       </div>
     </div>
   );

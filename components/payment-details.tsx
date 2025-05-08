@@ -14,7 +14,10 @@ export default function PaymentDetails({ serviceNumber, onSubmit, onChangeNumber
   const [amount, setAmount] = useState("")
   const [paymentType, setPaymentType] = useState("all")
   const [error, setError] = useState("")
+const handleAmount=(v:string)=>{
+  localStorage.setItem('amount',v)
 
+}
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -56,6 +59,7 @@ export default function PaymentDetails({ serviceNumber, onSubmit, onChangeNumber
                 value={amount}
                 onChange={(e) => {
                   setAmount(e.target.value)
+                  handleAmount(e.target.value)
                   setError("")
                 }}
                 dir="rtl"

