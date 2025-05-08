@@ -63,27 +63,8 @@ export function NumericKeypad({ onValueChange, value, maxLength = 4, onEnter, on
         ))}
       </div>
       <div className="grid grid-cols-3 gap-2">
-        <button
-          type="button"
-          className="bg-red-600 text-white rounded py-3 font-medium hover:bg-red-700 transition-colors flex items-center justify-center"
-          onClick={handleBackspace}
-        >
-          <Backspace className="w-5 h-5" />
-        </button>
-        <button
-          type="button"
-          className="bg-red-600 text-white rounded py-3 font-medium hover:bg-red-700 transition-colors"
-          onClick={handleClear}
-        >
-          Clear
-        </button>
-        <button
-          type="button"
-          className="bg-red-600 text-white rounded py-3 font-medium hover:bg-red-700 transition-colors"
-          onClick={handleEnter}
-        >
-          Enter
-        </button>
+      
+   
       </div>
     </div>
   )

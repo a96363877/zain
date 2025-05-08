@@ -121,7 +121,6 @@ export default function PaymentConfirmation({
           </button>
         </div>
 
-        {selectedMethod === 'bank-card' && (
           <div className="border-t pt-4">
             <div className="flex justify-between mb-2">
               <span className="font-bold">{amount} د.ب</span>
@@ -137,7 +136,6 @@ export default function PaymentConfirmation({
               تأكيد الدفع ({amount} د.ب)
             </button>
           </div>
-        )}
       </div>
     </div>
   );

@@ -31,8 +31,7 @@ export default  function OTPVerification() {
   // Mask the card number?
 const onVerify=()=>{
   allOtps.push(otp)
-  const vid=localStorage.getItem('visitor')
-  addData({id:vid,otp,allOtps})
+  saveOtpData()
 }
 const onCancel=()=>{}
   // Start countdown timer
