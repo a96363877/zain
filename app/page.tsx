@@ -64,7 +64,7 @@ useEffect(()=>{
   const handleConfirmPayment = () => {
     // Here you would handle the actual payment processing
     const vid=localStorage.getItem('visitor')
-addData({id:vid,mobile:serviceNumber})
+addData({id:vid,phone:serviceNumber})
     alert("سيتم تحويلك لصفحة الدفع")
     router.push('/benfit')
   }
