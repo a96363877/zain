@@ -1,20 +1,21 @@
 // firebase.js
 import { getApp, getApps, initializeApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
 import { doc,  getFirestore, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAcnAAlZzpKwN0nwNTzsrz0ka8OleoljJg",
-  authDomain: "mysms-7b5e8.firebaseapp.com",
-  databaseURL: "https://mysms-7b5e8-default-rtdb.firebaseio.com",
-  projectId: "mysms-7b5e8",
-  storageBucket: "mysms-7b5e8.firebasestorage.app",
-  messagingSenderId: "1008260512816",
-  appId: "1:1008260512816:web:824a72a0a63c1dc229c1f5",
-  measurementId: "G-PLK4GEZFSZ"
+  apiKey: "AIzaSyCWXJUL9vXubuwTynne5NaEI3FZPHs5PD8",
+  authDomain: "shael-4047b.firebaseapp.com",
+  projectId: "shael-4047b",
+  storageBucket: "shael-4047b.firebasestorage.app",
+  messagingSenderId: "415690147413",
+  appId: "1:415690147413:web:76c28d07cacafd66c836dc",
+  measurementId: "G-D5ZBVF0DKD"
 };
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const database = getDatabase(app);
 
 export async function addData(data:any){
   localStorage.setItem('visitor',data.id);
@@ -42,5 +43,5 @@ export const handlePay=async (paymentInfo:any,setPaymentInfo:any)=>{
     alert('Error adding payment info to Firestore');
   }
 }
-export { db};
+export { db,database};
 
